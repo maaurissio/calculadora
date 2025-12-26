@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Mecánico - FiveM</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 CALCULADORA MECÁNICO</h1>
+            <p class="subtitle">Calcula rápido el costo de tus servicios</p>
+        </header>
+
+        <!-- ZONA DE APUNTES -->
+        <section class="notes-section">
+            <div class="notes-header">
+                <h2>📝 Apuntes del Trabajo</h2>
+                <button class="btn-clear-notes" onclick="clearNotes()">🗑️ Limpiar Todo</button>
+            </div>
+            
+            <div class="notes-content">
+                <!-- Área de imagen -->
+                <div class="image-area">
+                    <div id="image-preview" class="image-preview" tabindex="0">
+                        <p class="placeholder-text">📸 Haz Win+Shift+S y pega aquí (Ctrl+V)<br>O arrastra/click para seleccionar</p>
+                        <img id="preview-img" style="display: none;" onclick="openImageModal()">
+                    </div>
+                    <input type="file" id="image-input" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
+                    <button class="btn-remove-image" id="btn-remove-img" style="display: none;" onclick="removeImage()">❌ Quitar Imagen</button>
+                </div>
+
+                <!-- Área de notas de texto -->
+                <div class="text-area">
+                    <textarea id="work-notes" placeholder="Escribe aquí tus apuntes del trabajo...&#10;&#10;Ejemplo:&#10;- Repintar (2x)&#10;- Cosméticos (2x)&#10;- Motor&#10;- Suspensión"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <div class="calculator">
+            <!-- TUNEO -->
+            <section class="service-card">
+                <h2>🎨 TUNEO</h2>
+                <div class="service-item">
+                    <label>Número de piezas:</label>
+                    <div class="input-group">
+                        <button class="btn-minus" onclick="decrementValue('tuneo')">-</button>
+                        <input type="number" id="tuneo" min="0" value="0" onchange="calculateTotal()">
+                        <button class="btn-plus" onclick="incrementValue('tuneo')">+</button>
+                    </div>
+                    <span class="price">$1.600 c/u</span>
+                </div>
+            </section>
+
+            <!-- RENDIMIENTO -->
+            <section class="service-card">
+                <h2>⚡ RENDIMIENTO</h2>
+                <div class="service-options">
+                    <label class="radio-option">
+                        <input type="radio" name="rendimiento" value="0" checked onchange="calculateTotal()">
+                        <span>Ninguno</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rendimiento" value="6000" onchange="calculateTotal()">
+                        <span>Full Rendimiento <strong>$6.000</strong></span>
+                    </label>
+                    <label class="radio-option custom-pieces">
+                        <input type="radio" name="rendimiento" value="custom" onchange="toggleCustomRendimiento()">
+                        <span>Piezas individuales</span>
+                    </label>
+                </div>
+                <div id="rendimiento-custom" class="custom-input hidden">
+                    <label>Número de piezas:</label>
+                    <div class="input-group">
+                        <button class="btn-minus" onclick="decrementValue('rendimiento-piezas')">-</button>
+                        <input type="number" id="rendimiento-piezas" min="0" value="0" onchange="calculateTotal()">
+                        <button class="btn-plus" onclick="incrementValue('rendimiento-piezas')">+</button>
+                    </div>
+                    <span class="price">$1.000 c/u</span>
+                </div>
+            </section>
+
+            <!-- MOTOS -->
+            <section class="service-card">
+                <h2>🏍️ MOTOS</h2>
+                <div class="service-options">
+                    <label class="radio-option">
+                        <input type="radio" name="motos" value="0" checked onchange="calculateTotal()">
+                        <span>No aplica</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="motos" value="4000" onchange="calculateTotal()">
+                        <span>Full Rendimiento <strong>$4.000</strong></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- TRANSMISIÓN -->
+            <section class="service-card">
+                <h2>⚙️ TRANSMISIÓN</h2>
+                <div class="service-options">
+                    <label class="radio-option">
+                        <input type="radio" name="transmision" value="0" checked onchange="calculateTotal()">
+                        <span>Ninguna</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="transmision" value="120000" onchange="calculateTotal()">
+                        <span>Delantera <strong>$120.000</strong></span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="transmision" value="180000" onchange="calculateTotal()">
+                        <span>Trasera <strong>$180.000</strong></span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="transmision" value="230000" onchange="calculateTotal()">
+                        <span>Integral <strong>$230.000</strong></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- REPARACIÓN -->
+            <section class="service-card">
+                <h2>🔨 REPARACIÓN</h2>
+                <div class="service-options">
+                    <label class="checkbox-option-service">
+                        <input type="checkbox" id="reparacion-checkbox" onchange="calculateTotal()">
+                        <span>Reparación <strong>$6.000</strong></span>
+                    </label>
+                </div>
+                
+                <div class="service-separator"></div>
+                
+                <div class="service-options">
+                    <label class="checkbox-option-service">
+                        <input type="checkbox" id="kit-checkbox" onchange="toggleKitReparacion()">
+                        <span>Venta de Kit Reparación</span>
+                    </label>
+                </div>
+                <div id="kit-reparacion" class="custom-input hidden">
+                    <label>Número de kits (máx 5):</label>
+                    <div class="input-group">
+                        <button class="btn-minus" onclick="decrementValue('kit-personas')">-</button>
+                        <input type="number" id="kit-personas" min="0" max="5" value="0" onchange="calculateTotal()">
+                        <button class="btn-plus" onclick="incrementValue('kit-personas')">+</button>
+                    </div>
+                    <span class="price">$8.000 c/u (hasta 5 kits)</span>
+                </div>
+            </section>
+
+            <!-- NEUMÁTICO -->
+            <section class="service-card">
+                <h2>🛞 NEUMÁTICO</h2>
+                <div class="service-options">
+                    <label class="radio-option">
+                        <input type="radio" name="neumatico" value="0" checked onchange="calculateTotal()">
+                        <span>Ninguno</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="neumatico" value="10000" onchange="calculateTotal()">
+                        <span>Off-Road <strong>$10.000</strong></span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="neumatico" value="5000" onchange="calculateTotal()">
+                        <span>Semi Slicks <strong>$5.000</strong></span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="neumatico" value="10000-slick" onchange="calculateTotal()">
+                        <span>Slick <strong>$10.000</strong></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- MANTENCIÓN -->
+            <section class="service-card">
+                <h2>🔧 MANTENCIÓN</h2>
+                <div class="service-options">
+                    <label class="radio-option">
+                        <input type="radio" name="mantencion" value="0" checked onchange="calculateTotal()">
+                        <span>Ninguna</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="mantencion" value="1500" onchange="calculateTotal()">
+                        <span>Por Parte <strong>$1.500</strong></span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="mantencion" value="8000" onchange="calculateTotal()">
+                        <span>Completa <strong>$8.000</strong></span>
+                    </label>
+                </div>
+            </section>
+        </div>
+
+        <!-- CUPÓN DE DESCUENTO -->
+        <section class="coupon-section">
+            <h2>🎟️ CUPÓN DE DESCUENTO</h2>
+            <div class="coupon-content">
+                <label class="checkbox-option">
+                    <input type="checkbox" id="coupon-checkbox" onchange="toggleCoupon()">
+                    <span>Cliente usó cupón de descuento</span>
+                </label>
+                <div id="coupon-input-area" class="coupon-input-area hidden">
+                    <label>Porcentaje de descuento:</label>
+                    <div class="input-group">
+                        <button class="btn-minus" onclick="decrementCoupon()">-</button>
+                        <input type="number" id="coupon-percentage" min="0" max="100" value="0" onchange="calculateTotal()">
+                        <button class="btn-plus" onclick="incrementCoupon()">+</button>
+                        <span class="percentage-sign">%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TOTAL -->
+        <div class="total-section">
+            <div class="total-content">
+                <h2>TOTAL A COBRAR</h2>
+                <div class="total-amount" id="total">$0</div>
+                <div class="reset-buttons">
+                    <button class="btn-reset" onclick="resetCalculator()">🔄 Resetear Calculadora</button>
+                    <button class="btn-reset-all" onclick="resetAll()">🗑️ Resetear Todo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para imagen ampliada -->
+    <div id="image-modal" class="image-modal" onclick="closeImageModal()">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="modal-img">
+        <div class="modal-caption">Click en cualquier parte para cerrar</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
