@@ -6,7 +6,7 @@
     <title>JDM Performance - Calculadora</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&family=M+PLUS+1p:wght@400;500;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -65,9 +65,13 @@
 
         <div class="calculator">
             <!-- RENDIMIENTO -->
-            <section class="service-card">
+            <section class="service-card" data-kanji="性能">
                 <h2>性能 RENDIMIENTO</h2>
                 <div class="service-options">
+                    <label class="radio-option">
+                        <input type="radio" name="rendimiento" value="0" checked onchange="toggleCustomRendimiento()">
+                        <span>Ninguno</span>
+                    </label>
                     <label class="radio-option">
                         <input type="radio" name="rendimiento" value="6000" onchange="toggleCustomRendimiento()">
                         <span>Full Rendimiento <strong>$6.000</strong></span>
@@ -75,10 +79,6 @@
                     <label class="radio-option custom-pieces">
                         <input type="radio" name="rendimiento" value="custom" onchange="toggleCustomRendimiento()">
                         <span>Piezas individuales</span>
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="rendimiento" value="0" onchange="toggleCustomRendimiento()">
-                        <span>Ninguno</span>
                     </label>
                 </div>
                 <div id="rendimiento-custom" class="custom-input hidden">
@@ -93,7 +93,7 @@
             </section>
 
             <!-- MOTOS -->
-            <section class="service-card">
+            <section class="service-card" data-kanji="車">
                 <h2>バイク MOTOS</h2>
                 <div class="service-options">
                     <label class="radio-option">
@@ -108,7 +108,7 @@
             </section>
 
             <!-- TRANSMISIÓN -->
-            <section class="service-card">
+            <section class="service-card" data-kanji="変">
                 <h2>変速機 TRANSMISIÓN</h2>
                 <div class="service-options">
                     <label class="radio-option">
@@ -131,7 +131,7 @@
             </section>
 
             <!-- REPARACIÓN -->
-            <section class="service-card">
+            <section class="service-card" data-kanji="修">
                 <h2>修理 REPARACIÓN</h2>
                 <div class="service-options">
                     <label class="checkbox-option-service">
@@ -160,7 +160,7 @@
             </section>
 
             <!-- NEUMÁTICO -->
-            <section class="service-card">
+            <section class="service-card" data-kanji="輪">
                 <h2>タイヤ NEUMÁTICO</h2>
                 <div class="service-options">
                     <label class="radio-option">
@@ -183,7 +183,7 @@
             </section>
 
             <!-- MANTENCIÓN -->
-            <section class="service-card">
+            <section class="service-card" data-kanji="整">
                 <h2>整備 MANTENCIÓN</h2>
                 <div class="service-options">
                     <label class="radio-option">
@@ -212,7 +212,7 @@
         </div>
 
         <!-- CUPÓN DE DESCUENTO -->
-        <section class="coupon-section">
+        <section class="coupon-section" data-kanji="割">
             <h2>割引 DESCUENTO</h2>
             <div class="coupon-content">
                 <label class="checkbox-option">
