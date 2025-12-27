@@ -988,3 +988,37 @@ input[type="number"] {
     outline: 2px solid var(--primary);
     outline-offset: 2px;
 }
+
+/* Recordatorio Mantención Completa */
+.mantencion-reminder {
+    margin-top: 15px;
+    padding: 12px 15px;
+    background: rgba(230, 57, 70, 0.1);
+    border: 1px dashed var(--primary);
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+}
+
+.mantencion-reminder p {
+    color: var(--primary);
+    margin-bottom: 8px;
+}
+
+.mantencion-reminder ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 4px 15px;
+    color: var(--text-secondary);
+}
+
+.mantencion-reminder ul li::before {
+    content: "• ";
+    color: var(--primary);
+}
+
+@media (max-width: 480px) {
+    .mantencion-reminder ul {
+        grid-template-columns: 1fr;
+    }
+}

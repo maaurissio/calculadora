@@ -313,10 +313,6 @@ function calculateTotal() {
     const motos = parseInt(document.querySelector('input[name="motos"]:checked').value) || 0;
     total += motos;
 
-    // TRANSMISIÓN
-    const transmision = parseInt(document.querySelector('input[name="transmision"]:checked').value) || 0;
-    total += transmision;
-
     // REPARACIÓN
     const reparacionCheckbox = document.getElementById('reparacion-checkbox');
     if (reparacionCheckbox && reparacionCheckbox.checked) {
