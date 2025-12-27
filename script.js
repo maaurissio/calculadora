@@ -427,9 +427,15 @@ function resetAll() {
 function toggleTheme() {
     const html = document.documentElement;
     const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    // Si está en light, quitamos el atributo (vuelve a oscuro base)
+    // Si no tiene o es dark, ponemos light
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     
-    html.setAttribute('data-theme', newTheme);
+    if (newTheme === 'dark') {
+        html.removeAttribute('data-theme');
+    } else {
+        html.setAttribute('data-theme', 'light');
+    }
     localStorage.setItem('theme', newTheme);
     updateThemeButton(newTheme);
 }
@@ -438,23 +444,22 @@ function updateThemeButton(theme) {
     const icon = document.getElementById('theme-icon');
     const text = document.getElementById('theme-text');
     
-    if (theme === 'dark') {
-        icon.textContent = '☀️';
-        text.textContent = '明るい'; // Akarui = Claro/Brillante
-    } else {
+    if (theme === 'light') {
         icon.textContent = '🌙';
         text.textContent = '暗い'; // Kurai = Oscuro
+    } else {
+        icon.textContent = '☀️';
+        text.textContent = '明るい'; // Akarui = Claro/Brillante
     }
 }
 
 function initTheme() {
     const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeButton(savedTheme);
+    if (savedTheme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        updateThemeButton('light');
     } else {
-        // Por defecto modo oscuro
-        document.documentElement.setAttribute('data-theme', 'dark');
+        // Por defecto modo oscuro (sin atributo, usa :root)
         updateThemeButton('dark');
     }
 }
