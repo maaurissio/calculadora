@@ -3,71 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora Mecánico - FiveM</title>
+    <title>JDM Performance - Calculadora</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@400;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Japanese background text -->
+    <div class="japanese-bg">
+        <span>パフォーマンス</span>
+        <span>スピード</span>
+        <span>チューニング</span>
+        <span>日本</span>
+        <span>速度</span>
+        <span>改造</span>
+    </div>
+    
     <div class="container">
         <header>
-            <h1>🔧 CALCULADORA MECÁNICO</h1>
-            <p class="subtitle">Calcula rápido el costo de tus servicios</p>
+            <div class="header-japanese">性能</div>
+            <h1>JDM PERFORMANCE</h1>
+            <p class="subtitle">メカニック電卓 • Calculadora Mecánico</p>
+            <div class="rising-sun"></div>
         </header>
 
         <!-- ZONA DE APUNTES -->
         <section class="notes-section">
             <div class="notes-header">
-                <h2>📝 Apuntes del Trabajo</h2>
-                <button class="btn-clear-notes" onclick="clearNotes()">🗑️ Limpiar Todo</button>
+                <h2>作業 TRABAJO</h2>
+                <button class="btn-clear-notes" onclick="clearNotes()">✕ LIMPIAR</button>
             </div>
             
             <div class="notes-content">
                 <!-- Área de imagen -->
                 <div class="image-area">
                     <div id="image-preview" class="image-preview" tabindex="0">
-                        <p class="placeholder-text">📸 Haz Win+Shift+S y pega aquí (Ctrl+V)<br>O arrastra/click para seleccionar</p>
+                        <p class="placeholder-text">📸 Win+Shift+S y pega (Ctrl+V)<br>O arrastra/click</p>
                         <img id="preview-img" style="display: none;" onclick="openImageModal()">
                     </div>
                     <input type="file" id="image-input" accept="image/*" style="display: none;" onchange="handleImageUpload(event)">
-                    <button class="btn-remove-image" id="btn-remove-img" style="display: none;" onclick="removeImage()">❌ Quitar Imagen</button>
+                    <button class="btn-remove-image" id="btn-remove-img" style="display: none;" onclick="removeImage()">✕ QUITAR</button>
                 </div>
 
-                <!-- Área de notas de texto -->
-                <div class="text-area">
-                    <textarea id="work-notes" placeholder="Escribe aquí tus apuntes del trabajo...&#10;&#10;Ejemplo:&#10;- Repintar (2x)&#10;- Cosméticos (2x)&#10;- Motor&#10;- Suspensión"></textarea>
+                <!-- TUNEO al lado de imagen -->
+                <div class="tuneo-inline">
+                    <h3>チューニング TUNEO</h3>
+                    <div class="service-item">
+                        <label>Número de piezas:</label>
+                        <div class="input-group">
+                            <button class="btn-minus" onclick="decrementValue('tuneo')">-</button>
+                            <input type="number" id="tuneo" min="0" value="0" onchange="calculateTotal()">
+                            <button class="btn-plus" onclick="incrementValue('tuneo')">+</button>
+                        </div>
+                        <span class="price">$1.600 c/u</span>
+                    </div>
                 </div>
             </div>
         </section>
+        <textarea id="work-notes" style="display:none;"></textarea>
 
         <div class="calculator">
-            <!-- TUNEO -->
-            <section class="service-card">
-                <h2>🎨 TUNEO</h2>
-                <div class="service-item">
-                    <label>Número de piezas:</label>
-                    <div class="input-group">
-                        <button class="btn-minus" onclick="decrementValue('tuneo')">-</button>
-                        <input type="number" id="tuneo" min="0" value="0" onchange="calculateTotal()">
-                        <button class="btn-plus" onclick="incrementValue('tuneo')">+</button>
-                    </div>
-                    <span class="price">$1.600 c/u</span>
-                </div>
-            </section>
-
             <!-- RENDIMIENTO -->
             <section class="service-card">
-                <h2>⚡ RENDIMIENTO</h2>
+                <h2>性能 RENDIMIENTO</h2>
                 <div class="service-options">
                     <label class="radio-option">
-                        <input type="radio" name="rendimiento" value="0" checked onchange="calculateTotal()">
-                        <span>Ninguno</span>
-                    </label>
-                    <label class="radio-option">
-                        <input type="radio" name="rendimiento" value="6000" onchange="calculateTotal()">
+                        <input type="radio" name="rendimiento" value="6000" onchange="toggleCustomRendimiento()">
                         <span>Full Rendimiento <strong>$6.000</strong></span>
                     </label>
                     <label class="radio-option custom-pieces">
                         <input type="radio" name="rendimiento" value="custom" onchange="toggleCustomRendimiento()">
                         <span>Piezas individuales</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rendimiento" value="0" onchange="toggleCustomRendimiento()">
+                        <span>Ninguno</span>
                     </label>
                 </div>
                 <div id="rendimiento-custom" class="custom-input hidden">
@@ -83,7 +94,7 @@
 
             <!-- MOTOS -->
             <section class="service-card">
-                <h2>🏍️ MOTOS</h2>
+                <h2>バイク MOTOS</h2>
                 <div class="service-options">
                     <label class="radio-option">
                         <input type="radio" name="motos" value="0" checked onchange="calculateTotal()">
@@ -98,7 +109,7 @@
 
             <!-- TRANSMISIÓN -->
             <section class="service-card">
-                <h2>⚙️ TRANSMISIÓN</h2>
+                <h2>変速機 TRANSMISIÓN</h2>
                 <div class="service-options">
                     <label class="radio-option">
                         <input type="radio" name="transmision" value="0" checked onchange="calculateTotal()">
@@ -121,7 +132,7 @@
 
             <!-- REPARACIÓN -->
             <section class="service-card">
-                <h2>🔨 REPARACIÓN</h2>
+                <h2>修理 REPARACIÓN</h2>
                 <div class="service-options">
                     <label class="checkbox-option-service">
                         <input type="checkbox" id="reparacion-checkbox" onchange="calculateTotal()">
@@ -150,7 +161,7 @@
 
             <!-- NEUMÁTICO -->
             <section class="service-card">
-                <h2>🛞 NEUMÁTICO</h2>
+                <h2>タイヤ NEUMÁTICO</h2>
                 <div class="service-options">
                     <label class="radio-option">
                         <input type="radio" name="neumatico" value="0" checked onchange="calculateTotal()">
@@ -173,7 +184,7 @@
 
             <!-- MANTENCIÓN -->
             <section class="service-card">
-                <h2>🔧 MANTENCIÓN</h2>
+                <h2>整備 MANTENCIÓN</h2>
                 <div class="service-options">
                     <label class="radio-option">
                         <input type="radio" name="mantencion" value="0" checked onchange="toggleMantencionPorParte()">
@@ -202,7 +213,7 @@
 
         <!-- CUPÓN DE DESCUENTO -->
         <section class="coupon-section">
-            <h2>🎟️ CUPÓN DE DESCUENTO</h2>
+            <h2>割引 DESCUENTO</h2>
             <div class="coupon-content">
                 <label class="checkbox-option">
                     <input type="checkbox" id="coupon-checkbox" onchange="toggleCoupon()">
@@ -223,11 +234,12 @@
         <!-- TOTAL -->
         <div class="total-section">
             <div class="total-content">
-                <h2>TOTAL A COBRAR</h2>
+                <div class="total-japanese">合計</div>
+                <h2>TOTAL</h2>
                 <div class="total-amount" id="total">$0</div>
                 <div class="reset-buttons">
-                    <button class="btn-reset" onclick="resetCalculator()">🔄 Resetear Calculadora</button>
-                    <button class="btn-reset-all" onclick="resetAll()">🗑️ Resetear Todo</button>
+                    <button class="btn-reset" onclick="resetCalculator()">RESET</button>
+                    <button class="btn-reset-all" onclick="resetAll()">BORRAR TODO</button>
                 </div>
             </div>
         </div>

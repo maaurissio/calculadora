@@ -248,8 +248,12 @@ function toggleCustomRendimiento() {
     
     if (customRadio.checked) {
         customDiv.classList.remove('hidden');
+        if (document.getElementById('rendimiento-piezas').value === '0') {
+            document.getElementById('rendimiento-piezas').value = 1;
+        }
     } else {
         customDiv.classList.add('hidden');
+        document.getElementById('rendimiento-piezas').value = 0;
     }
     calculateTotal();
 }
