@@ -453,8 +453,9 @@ function initTheme() {
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateThemeButton(savedTheme);
     } else {
-        // Por defecto modo claro
-        document.documentElement.setAttribute('data-theme', 'light');
+        // Por defecto modo oscuro
+        document.documentElement.setAttribute('data-theme', 'dark');
+        updateThemeButton('dark');
     }
 }
 
