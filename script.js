@@ -423,7 +423,43 @@ function resetAll() {
     }
 }
 
+// Funciones para el tema oscuro
+function toggleTheme() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    html.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeButton(newTheme);
+}
+
+function updateThemeButton(theme) {
+    const icon = document.getElementById('theme-icon');
+    const text = document.getElementById('theme-text');
+    
+    if (theme === 'dark') {
+        icon.textContent = '☀️';
+        text.textContent = '明るい'; // Akarui = Claro/Brillante
+    } else {
+        icon.textContent = '🌙';
+        text.textContent = '暗い'; // Kurai = Oscuro
+    }
+}
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+        document.documentElement.setAttribute('data-theme', savedTheme);
+        updateThemeButton(savedTheme);
+    } else {
+        // Por defecto modo claro
+        document.documentElement.setAttribute('data-theme', 'light');
+    }
+}
+
 // Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
+    initTheme();
     calculateTotal();
 });
