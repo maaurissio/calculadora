@@ -460,6 +460,25 @@ function initTheme() {
     }
 }
 
+// Exponer funciones al objeto window para que estén disponibles globalmente
+window.toggleTheme = toggleTheme;
+window.clearNotes = clearNotes;
+window.removeImage = removeImage;
+window.openImageModal = openImageModal;
+window.closeImageModal = closeImageModal;
+window.handleImageUpload = handleImageUpload;
+window.incrementValue = incrementValue;
+window.decrementValue = decrementValue;
+window.toggleCustomRendimiento = toggleCustomRendimiento;
+window.toggleKitReparacion = toggleKitReparacion;
+window.toggleMantencionPorParte = toggleMantencionPorParte;
+window.toggleCoupon = toggleCoupon;
+window.incrementCoupon = incrementCoupon;
+window.decrementCoupon = decrementCoupon;
+window.calculateTotal = calculateTotal;
+window.resetCalculator = resetCalculator;
+window.resetAll = resetAll;
+
 // Inicializar al cargar la página
 document.addEventListener('DOMContentLoaded', function() {
     initTheme();
