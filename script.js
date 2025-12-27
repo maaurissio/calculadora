@@ -271,6 +271,23 @@ function toggleKitReparacion() {
     calculateTotal();
 }
 
+// Mostrar/ocultar piezas de mantención por parte
+function toggleMantencionPorParte() {
+    const customDiv = document.getElementById('mantencion-custom');
+    const porParteRadio = document.querySelector('input[name="mantencion"][value="por-parte"]');
+    
+    if (porParteRadio.checked) {
+        customDiv.classList.remove('hidden');
+        if (document.getElementById('mantencion-piezas').value === '0') {
+            document.getElementById('mantencion-piezas').value = 1;
+        }
+    } else {
+        customDiv.classList.add('hidden');
+        document.getElementById('mantencion-piezas').value = 0;
+    }
+    calculateTotal();
+}
+
 // Calcular el total
 function calculateTotal() {
     let total = 0;
@@ -318,8 +335,13 @@ function calculateTotal() {
     }
 
     // MANTENCIÓN
-    const mantencion = parseInt(document.querySelector('input[name="mantencion"]:checked').value) || 0;
-    total += mantencion;
+    const mantencion = document.querySelector('input[name="mantencion"]:checked').value;
+    if (mantencion === '8000') {
+        total += 8000;
+    } else if (mantencion === 'por-parte') {
+        const piezas = parseInt(document.getElementById('mantencion-piezas').value) || 0;
+        total += piezas * 1500;
+    }
 
     // Aplicar descuento de cupón
     const couponCheckbox = document.getElementById('coupon-checkbox');
@@ -355,6 +377,7 @@ function resetCalculator() {
     document.getElementById('tuneo').value = 0;
     document.getElementById('rendimiento-piezas').value = 0;
     document.getElementById('kit-personas').value = 0;
+    document.getElementById('mantencion-piezas').value = 0;
 
     // Resetear radios
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
@@ -372,6 +395,7 @@ function resetCalculator() {
     // Ocultar opciones personalizadas
     document.getElementById('rendimiento-custom').classList.add('hidden');
     document.getElementById('kit-reparacion').classList.add('hidden');
+    document.getElementById('mantencion-custom').classList.add('hidden');
 
     // Resetear cupón
     document.getElementById('coupon-checkbox').checked = false;

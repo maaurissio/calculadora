@@ -176,17 +176,26 @@
                 <h2>🔧 MANTENCIÓN</h2>
                 <div class="service-options">
                     <label class="radio-option">
-                        <input type="radio" name="mantencion" value="0" checked onchange="calculateTotal()">
+                        <input type="radio" name="mantencion" value="0" checked onchange="toggleMantencionPorParte()">
                         <span>Ninguna</span>
                     </label>
-                    <label class="radio-option">
-                        <input type="radio" name="mantencion" value="1500" onchange="calculateTotal()">
-                        <span>Por Parte <strong>$1.500</strong></span>
+                    <label class="radio-option custom-pieces">
+                        <input type="radio" name="mantencion" value="por-parte" onchange="toggleMantencionPorParte()">
+                        <span>Por Parte <strong>$1.500 c/u</strong></span>
                     </label>
                     <label class="radio-option">
-                        <input type="radio" name="mantencion" value="8000" onchange="calculateTotal()">
+                        <input type="radio" name="mantencion" value="8000" onchange="toggleMantencionPorParte()">
                         <span>Completa <strong>$8.000</strong></span>
                     </label>
+                </div>
+                <div id="mantencion-custom" class="custom-input hidden">
+                    <label>Número de piezas:</label>
+                    <div class="input-group">
+                        <button class="btn-minus" onclick="decrementValue('mantencion-piezas')">-</button>
+                        <input type="number" id="mantencion-piezas" min="0" value="0" onchange="calculateTotal()">
+                        <button class="btn-plus" onclick="incrementValue('mantencion-piezas')">+</button>
+                    </div>
+                    <span class="price">$1.500 c/u</span>
                 </div>
             </section>
         </div>
