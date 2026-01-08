@@ -65,14 +65,57 @@ function removeImage() {
 }
 
 function clearNotes() {
-    if (confirm('¿Seguro que quieres limpiar todo? Se borrarán las notas y la imagen.')) {
-        // Limpiar imagen
-        removeImage();
-        
-        // Limpiar notas de texto
-        document.getElementById('work-notes').value = '';
-        localStorage.removeItem('workNotes');
+    showConfirmModal(
+        '¿Limpiar trabajo?',
+        '¿Seguro que quieres limpiar todo?',
+        ['Las notas de texto', 'La imagen adjunta'],
+        function() {
+            // Limpiar imagen
+            removeImage();
+            
+            // Limpiar notas de texto
+            document.getElementById('work-notes').value = '';
+            localStorage.removeItem('workNotes');
+        }
+    );
+}
+
+// ==================== MODAL DE CONFIRMACIÓN ====================
+let confirmCallback = null;
+
+function showConfirmModal(title, message, listItems, onConfirm) {
+    const modal = document.getElementById('confirm-modal');
+    const titleEl = document.getElementById('confirm-title');
+    const messageEl = document.getElementById('confirm-message');
+    const listEl = document.getElementById('confirm-list');
+    
+    titleEl.textContent = title || 'CONFIRMAR';
+    messageEl.textContent = message || '¿Estás seguro?';
+    
+    // Limpiar y llenar la lista
+    listEl.innerHTML = '';
+    if (listItems && listItems.length > 0) {
+        listItems.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = item;
+            listEl.appendChild(li);
+        });
     }
+    
+    confirmCallback = onConfirm;
+    modal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeConfirmModal(confirmed) {
+    const modal = document.getElementById('confirm-modal');
+    modal.classList.remove('show');
+    document.body.style.overflow = 'auto';
+    
+    if (confirmed && typeof confirmCallback === 'function') {
+        confirmCallback();
+    }
+    confirmCallback = null;
 }
 
 // Función para procesar imagen desde el portapapeles
@@ -408,15 +451,20 @@ function resetCalculator() {
 
 // Resetear todo (incluye apuntes e imagen)
 function resetAll() {
-    if (confirm('¿Seguro que quieres resetear TODO? Se borrarán:\n- La calculadora\n- Los apuntes\n- La imagen\n- El cupón')) {
-        // Resetear calculadora
-        resetCalculator();
-        
-        // Limpiar imagen y notas
-        removeImage();
-        document.getElementById('work-notes').value = '';
-        localStorage.removeItem('workNotes');
-    }
+    showConfirmModal(
+        '¿BORRAR TODO?',
+        '¿Seguro que quieres resetear TODO?',
+        ['La calculadora completa', 'Los apuntes de trabajo', 'La imagen adjunta', 'El cupón de descuento'],
+        function() {
+            // Resetear calculadora
+            resetCalculator();
+            
+            // Limpiar imagen y notas
+            removeImage();
+            document.getElementById('work-notes').value = '';
+            localStorage.removeItem('workNotes');
+        }
+    );
 }
 
 // Funciones para el tema oscuro

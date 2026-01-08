@@ -251,6 +251,31 @@
         <div class="modal-caption">Click en cualquier parte para cerrar</div>
     </div>
 
+    <!-- Modal de confirmación personalizado -->
+    <div id="confirm-modal" class="confirm-modal">
+        <div class="confirm-modal-content">
+            <div class="confirm-modal-header">
+                <span class="confirm-kanji">確認</span>
+                <h3 id="confirm-title">CONFIRMAR</h3>
+            </div>
+            <div class="confirm-modal-body">
+                <div class="confirm-icon">⚠️</div>
+                <p id="confirm-message">¿Estás seguro?</p>
+                <ul id="confirm-list" class="confirm-list"></ul>
+            </div>
+            <div class="confirm-modal-buttons">
+                <button class="btn-confirm-cancel" onclick="closeConfirmModal(false)">
+                    <span class="btn-kanji">取消</span>
+                    CANCELAR
+                </button>
+                <button class="btn-confirm-ok" onclick="closeConfirmModal(true)">
+                    <span class="btn-kanji">確定</span>
+                    CONFIRMAR
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
