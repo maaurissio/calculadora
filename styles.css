@@ -667,6 +667,39 @@ header h1 {
     border-bottom: 2px solid var(--border);
 }
 
+.section-subtitle {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.vehicle-type-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    padding: 6px;
+    background: var(--bg-content);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+}
+
+.vehicle-type-selector .radio-option {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    margin: 0;
+}
+
+.vehicle-type-selector .radio-option span {
+    font-size: 0.75rem;
+}
+
+.vehicle-type-selector .radio-option input:checked + span {
+    color: var(--primary);
+    font-weight: 700;
+}
+
 .service-item {
     display: flex;
     flex-direction: column;

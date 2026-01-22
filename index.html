@@ -57,6 +57,16 @@
                 <!-- TUNEO al lado de imagen -->
                 <div class="tuneo-inline">
                     <h3>チューニング TUNEO</h3>
+                    <div class="vehicle-type-selector">
+                        <label class="radio-option">
+                            <input type="radio" name="tuneo-tipo" value="concesionario" checked onchange="calculateTotal()">
+                            <span>Concesionario <strong>$1.600 c/u</strong></span>
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="tuneo-tipo" value="sangre" onchange="calculateTotal()">
+                            <span>Sangre <strong>$3.500 c/u</strong></span>
+                        </label>
+                    </div>
                     <div class="service-item">
                         <label>Número de piezas:</label>
                         <div class="input-group">
@@ -64,7 +74,7 @@
                             <input type="number" id="tuneo" min="0" value="0" onchange="calculateTotal()">
                             <button class="btn-plus" onclick="incrementValue('tuneo')">+</button>
                         </div>
-                        <span class="price">$1.600 c/u</span>
+                        <span class="price" id="tuneo-price">$1.600 c/u</span>
                     </div>
                 </div>
             </div>
@@ -75,14 +85,25 @@
             <!-- RENDIMIENTO -->
             <section class="service-card" data-kanji="性能">
                 <h2>性能 RENDIMIENTO</h2>
+                <p class="section-subtitle">Tipo de vehículo:</p>
+                <div class="vehicle-type-selector">
+                    <label class="radio-option">
+                        <input type="radio" name="rendimiento-tipo" value="concesionario" checked onchange="calculateTotal()">
+                        <span>Concesionario</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="rendimiento-tipo" value="sangre" onchange="calculateTotal()">
+                        <span>Sangre</span>
+                    </label>
+                </div>
                 <div class="service-options">
                     <label class="radio-option">
                         <input type="radio" name="rendimiento" value="0" checked onchange="toggleCustomRendimiento()">
                         <span>Ninguno</span>
                     </label>
                     <label class="radio-option">
-                        <input type="radio" name="rendimiento" value="6000" onchange="toggleCustomRendimiento()">
-                        <span>Full Rendimiento <strong>$6.000</strong></span>
+                        <input type="radio" name="rendimiento" value="full" onchange="toggleCustomRendimiento()">
+                        <span>Full Rendimiento <strong id="rendimiento-full-price">$6.000</strong></span>
                     </label>
                     <label class="radio-option custom-pieces">
                         <input type="radio" name="rendimiento" value="custom" onchange="toggleCustomRendimiento()">
@@ -103,14 +124,25 @@
             <!-- MOTOS -->
             <section class="service-card" data-kanji="車">
                 <h2>バイク MOTOS</h2>
+                <p class="section-subtitle">Tipo de moto:</p>
+                <div class="vehicle-type-selector">
+                    <label class="radio-option">
+                        <input type="radio" name="motos-tipo" value="concesionario" checked onchange="calculateTotal()">
+                        <span>Concesionario</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="motos-tipo" value="sangre" onchange="calculateTotal()">
+                        <span>Sangre</span>
+                    </label>
+                </div>
                 <div class="service-options">
                     <label class="radio-option">
                         <input type="radio" name="motos" value="0" checked onchange="calculateTotal()">
                         <span>No aplica</span>
                     </label>
                     <label class="radio-option">
-                        <input type="radio" name="motos" value="4000" onchange="calculateTotal()">
-                        <span>Full Rendimiento <strong>$4.000</strong></span>
+                        <input type="radio" name="motos" value="full" onchange="calculateTotal()">
+                        <span>Full Rendimiento <strong id="motos-full-price">$4.000</strong></span>
                     </label>
                 </div>
             </section>

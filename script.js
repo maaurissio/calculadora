@@ -339,22 +339,50 @@ function toggleMantencionPorParte() {
 function calculateTotal() {
     let total = 0;
 
-    // TUNEO - $1600 por pieza
+    // TUNEO - Concesionario $1600, Sangre $3500 por pieza
+    const tuneoTipo = document.querySelector('input[name="tuneo-tipo"]:checked').value;
     const tuneo = parseInt(document.getElementById('tuneo').value) || 0;
-    total += tuneo * 1600;
+    const tuneoPrice = tuneoTipo === 'sangre' ? 3500 : 1600;
+    total += tuneo * tuneoPrice;
+    
+    // Actualizar texto del precio
+    const tuneoPriceEl = document.getElementById('tuneo-price');
+    if (tuneoPriceEl) {
+        tuneoPriceEl.textContent = tuneoTipo === 'sangre' ? '$3.500 c/u' : '$1.600 c/u';
+    }
 
-    // RENDIMIENTO
+    // RENDIMIENTO - Concesionario Full $6000, Sangre Full $12000
+    const rendimientoTipo = document.querySelector('input[name="rendimiento-tipo"]:checked').value;
     const rendimiento = document.querySelector('input[name="rendimiento"]:checked').value;
-    if (rendimiento === '6000') {
-        total += 6000;
+    const rendimientoFullPrice = rendimientoTipo === 'sangre' ? 12000 : 6000;
+    
+    // Actualizar texto del precio full
+    const rendimientoFullPriceEl = document.getElementById('rendimiento-full-price');
+    if (rendimientoFullPriceEl) {
+        rendimientoFullPriceEl.textContent = rendimientoTipo === 'sangre' ? '$12.000' : '$6.000';
+    }
+    
+    if (rendimiento === 'full') {
+        total += rendimientoFullPrice;
     } else if (rendimiento === 'custom') {
         const piezas = parseInt(document.getElementById('rendimiento-piezas').value) || 0;
         total += piezas * 1000;
     }
 
-    // MOTOS
-    const motos = parseInt(document.querySelector('input[name="motos"]:checked').value) || 0;
-    total += motos;
+    // MOTOS - Concesionario Full $4000, Sangre Full $8000
+    const motosTipo = document.querySelector('input[name="motos-tipo"]:checked').value;
+    const motos = document.querySelector('input[name="motos"]:checked').value;
+    const motosFullPrice = motosTipo === 'sangre' ? 8000 : 4000;
+    
+    // Actualizar texto del precio full
+    const motosFullPriceEl = document.getElementById('motos-full-price');
+    if (motosFullPriceEl) {
+        motosFullPriceEl.textContent = motosTipo === 'sangre' ? '$8.000' : '$4.000';
+    }
+    
+    if (motos === 'full') {
+        total += motosFullPrice;
+    }
 
     // REPARACIÓN
     const reparacionCheckbox = document.getElementById('reparacion-checkbox');
@@ -422,11 +450,16 @@ function resetCalculator() {
     document.getElementById('kit-personas').value = 0;
     document.getElementById('mantencion-piezas').value = 0;
 
-    // Resetear radios
+    // Resetear radios de tipo de vehículo a concesionario
+    document.querySelectorAll('input[name="tuneo-tipo"][value="concesionario"]').forEach(r => r.checked = true);
+    document.querySelectorAll('input[name="rendimiento-tipo"][value="concesionario"]').forEach(r => r.checked = true);
+    document.querySelectorAll('input[name="motos-tipo"][value="concesionario"]').forEach(r => r.checked = true);
+
+    // Resetear radios de servicios
     document.querySelectorAll('input[type="radio"]').forEach(radio => {
         if (radio.value === '0') {
             radio.checked = true;
-        } else {
+        } else if (radio.name !== 'tuneo-tipo' && radio.name !== 'rendimiento-tipo' && radio.name !== 'motos-tipo') {
             radio.checked = false;
         }
     });
