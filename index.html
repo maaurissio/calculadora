@@ -60,11 +60,11 @@
                     <div class="vehicle-type-selector">
                         <label class="radio-option">
                             <input type="radio" name="tuneo-tipo" value="concesionario" checked onchange="calculateTotal()">
-                            <span>Concesionario <strong>$1.600 c/u</strong></span>
+                            <span>Concesionario <strong>$2.100 c/u</strong></span>
                         </label>
                         <label class="radio-option">
                             <input type="radio" name="tuneo-tipo" value="sangre" onchange="calculateTotal()">
-                            <span>Sangre <strong>$3.500 c/u</strong></span>
+                            <span>Sangre <strong>$4.100 c/u</strong></span>
                         </label>
                     </div>
                     <div class="service-item">
@@ -74,7 +74,7 @@
                             <input type="number" id="tuneo" min="0" value="0" onchange="calculateTotal()">
                             <button class="btn-plus" onclick="incrementValue('tuneo')">+</button>
                         </div>
-                        <span class="price" id="tuneo-price">$1.600 c/u</span>
+                        <span class="price" id="tuneo-price">$2.100 c/u</span>
                     </div>
                 </div>
             </div>
@@ -211,7 +211,7 @@
                     </label>
                     <label class="radio-option custom-pieces">
                         <input type="radio" name="mantencion" value="por-parte" onchange="toggleMantencionPorParte()">
-                        <span>Por Parte <strong>$1.500 c/u</strong></span>
+                        <span>Por Parte <strong>$2.000 c/u</strong></span>
                     </label>
                     <label class="radio-option">
                         <input type="radio" name="mantencion" value="8000" onchange="toggleMantencionPorParte()">
@@ -225,7 +225,7 @@
                         <input type="number" id="mantencion-piezas" min="0" value="0" onchange="calculateTotal()">
                         <button class="btn-plus" onclick="incrementValue('mantencion-piezas')">+</button>
                     </div>
-                    <span class="price">$1.500 c/u</span>
+                    <span class="price">$2.000 c/u</span>
                 </div>
                 <div class="mantencion-reminder">
                     <p><strong>📋 Recordatorio Mantención Completa:</strong></p>

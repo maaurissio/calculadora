@@ -339,16 +339,16 @@ function toggleMantencionPorParte() {
 function calculateTotal() {
     let total = 0;
 
-    // TUNEO - Concesionario $1600, Sangre $3500 por pieza
+    // TUNEO - Concesionario $2100, Sangre $4100 por pieza
     const tuneoTipo = document.querySelector('input[name="tuneo-tipo"]:checked').value;
     const tuneo = parseInt(document.getElementById('tuneo').value) || 0;
-    const tuneoPrice = tuneoTipo === 'sangre' ? 3500 : 1600;
+    const tuneoPrice = tuneoTipo === 'sangre' ? 4100 : 2100;
     total += tuneo * tuneoPrice;
     
     // Actualizar texto del precio
     const tuneoPriceEl = document.getElementById('tuneo-price');
     if (tuneoPriceEl) {
-        tuneoPriceEl.textContent = tuneoTipo === 'sangre' ? '$3.500 c/u' : '$1.600 c/u';
+        tuneoPriceEl.textContent = tuneoTipo === 'sangre' ? '$4.100 c/u' : '$2.100 c/u';
     }
 
     // RENDIMIENTO - Concesionario Full $6000, Sangre Full $12000
@@ -411,7 +411,7 @@ function calculateTotal() {
         total += 8000;
     } else if (mantencion === 'por-parte') {
         const piezas = parseInt(document.getElementById('mantencion-piezas').value) || 0;
-        total += piezas * 1500;
+        total += piezas * 2000;
     }
 
     // Aplicar descuento de cupón
